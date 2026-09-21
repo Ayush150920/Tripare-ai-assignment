@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Tripare DevOps Assessment
 
 This repository models `Internet → ALB → ECS/Fargate → private RDS PostgreSQL` in Terraform and provides a runnable local PostgreSQL backup/restore exercise.
@@ -82,3 +83,6 @@ AWS_ACCESS_KEY_ID=testing AWS_SECRET_ACCESS_KEY=testing terraform plan -refresh=
 ```
 
 Repeat in `infra/envs/prod` with `prod.tfvars`. The included GitHub Actions pull-request workflow runs formatting, init, validation and a no-refresh plan for both environments, then uploads each human-readable plan as an artifact. A real deployment requires valid AWS credentials, a real state bucket, and replacing the example password; it is deliberately outside this assessment's scope.
+=======
+# Tripare-ai-assignment
+>>>>>>> b082d61718f35c760150ce13fab5cd2c5612267c
