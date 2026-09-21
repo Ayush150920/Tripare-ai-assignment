@@ -1,0 +1,11 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+backups/*.dump
+.env
+infra/envs/*/override.tf
+infra/envs/*/override.tf.json
+infra/envs/*/*_override.tf
+infra/envs/*/*_override.tf.json
+
