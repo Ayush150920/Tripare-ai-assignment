@@ -70,7 +70,7 @@ Dev and prod intentionally differ:
 | dev | 1 × 0.25 vCPU / 512 MiB | `db.t4g.micro`, 20 GiB | 3 days | false |
 | prod | 2 × 0.5 vCPU / 1 GiB | `db.t4g.small`, 50 GiB | 14 days | true |
 
-Each environment has its own S3 backend declaration. Replace `REPLACE_WITH_TERRAFORM_STATE_BUCKET` before using a real remote backend. The checked-in `tfvars` passwords are illustrative only; supply a real secret outside version control before an apply, for example `TF_VAR_db_master_password`.
+Each environment has its own S3 backend template (`backend.hcl.example`). To use remote state, copy it to the ignored `backend.hcl`, replace `REPLACE_WITH_TERRAFORM_STATE_BUCKET`, then run `terraform init -backend-config=backend.hcl`. The checked-in `tfvars` passwords are illustrative only; supply a real secret outside version control before an apply, for example `TF_VAR_db_master_password`.
 
 For an offline state-independent review (the same behavior used by CI), use placeholder AWS credentials and disable the remote backend:
 
@@ -79,7 +79,7 @@ cd infra/envs/dev
 terraform fmt -check -recursive ../..
 terraform init -backend=false
 terraform validate
-AWS_ACCESS_KEY_ID=testing AWS_SECRET_ACCESS_KEY=testing terraform plan -refresh=false -input=false -var-file=dev.tfvars
+terraform plan -refresh=false -input=false -var-file=dev.tfvars
 ```
 
 Repeat in `infra/envs/prod` with `prod.tfvars`. The included GitHub Actions pull-request workflow runs formatting, init, validation and a no-refresh plan for both environments, then uploads each human-readable plan as an artifact. A real deployment requires valid AWS credentials, a real state bucket, and replacing the example password; it is deliberately outside this assessment's scope.
